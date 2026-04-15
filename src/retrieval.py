@@ -45,14 +45,19 @@ def ask(query):
     return answer, chunks
 
 if __name__ == "__main__":
-    query = "What is the transformer architecture?"
-    # query = "what is 1+1?"
+    # query = "What is the transformer architecture?"
+    query = "what is 1+1?"
     
     print(f"\nQuestion: {query}\n")
     answer, chunks = ask(query)
     
     print(f"Answer:\n{answer}\n")
     print("Sources used:")
+    sourcesSet = set()
     for i, doc in enumerate(chunks):
         source = doc.metadata.get("filename", "unknown")
-        print(f"  [{i+1}] {source}")
+        sourcesSet.add(source)
+    x = 1
+    for source in sourcesSet:
+        print(f"[{x}]  - {source}")
+        x += 1
