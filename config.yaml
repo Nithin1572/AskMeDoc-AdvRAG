@@ -1,0 +1,5 @@
+chroma_dir: "chroma_db"
+embed_model: "nomic-embed-text"
+llm_model: "gemma3:4b"
+top_k: 5
+docs_folder: "docs"

@@ -1,0 +1,101 @@
+PROJECT PHASES
+    PHASE 1 — Fundamentals
+
+        Step 1: Project Setup
+            Create a new GitHub repository with a clear README
+            Set up a Python virtual environment
+            Install core dependencies: langchain, chromadb, openai (or any LLM provider), pypdf, tiktoken
+            Create a .env file for API keys and a config.yaml for all settings
+
+        Step 2: Document Ingestion
+            Choose your document corpus (e.g., technical docs, research papers, legal contracts)
+            Write a document loader that handles at least one format: PDF, markdown, or web pages
+            Test that raw text is being extracted correctly before moving on
+
+        Step 3: Chunking
+            Implement a text splitter with chunk size: 500–800 tokens and overlap: ~100 tokens
+            Print sample chunks to verify boundaries look clean and no sentences are cut awkwardly
+            Log the total number of chunks produced from your corpus
+
+        Step 4: Embeddings & Vector Store
+            Choose an embedding model (e.g., text-embedding-3-small from OpenAI or a free HuggingFace model)
+            Set up ChromaDB or Weaviate locally
+            Embed all chunks and store them in the vector store
+            Write a simple test query to confirm retrieval is working
+
+        Step 5: Basic Retrieval Pipeline
+            Build a function that takes a user query → retrieves top-k chunks → passes them to an LLM → returns an answer
+            Make sure the answer includes citations (e.g., document name + page reference)
+            Test with 5–10 manual questions from your corpus
+
+        ✅ Phase 1 Deliverable: You can show someone a document, the answer your system produced, and point to the exact source paragraph.
+
+    PHASE 2 — Production Quality
+        
+        Step 6: Add BM25 Keyword Search
+            Install rank_bm25 library
+            Build a BM25 index over your chunked documents
+            Write a function that retrieves top-k chunks using BM25 alone and test it
+
+        Step 7: Implement Hybrid Retrieval
+            Combine BM25 results and vector search results
+            Use a simple fusion strategy like Reciprocal Rank Fusion (RRF) to merge the two result sets
+            Compare hybrid results vs. vector-only results on a few queries to confirm improvement
+
+        Step 8: Add a Cross-Encoder Re-Ranker
+            Install sentence-transformers
+            Load a cross-encoder model (e.g., cross-encoder/ms-marco-MiniLM-L-6-v2) or use Cohere's re-rank API
+            After hybrid retrieval, pass the query + retrieved chunks through the re-ranker
+            Re-order chunks by re-ranker score before sending to the LLM
+            Test again and note the difference in result quality
+
+        Step 9: Citation Enforcement
+            Add logic so the LLM is explicitly instructed to only answer from retrieved chunks
+            If no chunk supports the answer, the system should respond with something like "I don't have enough information to answer this."
+            Test with questions that are outside your document corpus to verify refusal works
+
+        Step 10: Version Your Prompts
+            Move all prompt templates into a prompts.yaml or prompts.json config file
+            Load prompts from this file at runtime instead of hardcoding them in your code
+            Commit this file to Git so every prompt change is tracked
+
+        ✅ Phase 2 Deliverable:A hybrid retrieval system with re-ranking and citation enforcement that behaves reliably and refuses to hallucinate.
+
+    PHASE 3 — Production Shippable
+
+        Step 11: Build Your Golden Evaluation Dataset
+            Manually write 50–200 question-answer pairs based on your document corpus
+            For each pair, note which document/chunk the answer comes from
+            Save this as a eval_dataset.json file and commit it to your repo
+
+        Step 12: Write the Evaluation Script
+            Install ragas
+            Write a script that runs every question in your golden dataset through the full RAG pipeline
+            Measure faithfulness (are answers grounded in retrieved chunks?) and answer relevance
+            Output a summary report with scores (e.g., faithfulness: 0.87)
+
+        Step 13: Set a Quality Threshold
+            Decide on minimum acceptable scores (e.g., faithfulness ≥ 0.80)
+            Make your evaluation script exit with a non-zero code if scores fall below the threshold
+
+        Step 14: Wire Into CI Pipeline
+            Set up GitHub Actions (free)
+            Create a workflow file .github/workflows/eval.yml that runs your evaluation script on every pull request
+            If the eval fails, the PR is blocked from merging
+            Test this by intentionally breaking a prompt and confirming the build fails
+
+        Step 15: Final Documentation
+            Write a thorough README covering: what the system does, how to run it, your tech stack, and your eval results
+            Include a diagram of the full pipeline (ingestion → chunking → hybrid retrieval → re-ranking → LLM → cited answer)
+            Add a section on lessons learned and what you'd improve next
+
+        ✅ Phase 3 Deliverable: A fully evaluated, CI-gated RAG system with versioned prompts that behaves like a real production AI system.
+
+PROBLEMS
+    Problem 1 - Token limit issues
+        - Tried Different models (Chatgpt, Gemini)
+        - Used offline models like gemma3:4b and gemma3:1b
+    
+    Problem 2 - hallucination
+        - Improved the prompt - Fixed hallucination while mentioning the source (citation)
+        - Used better model (gemma:1b to gemma3:4b) - Fixed hallucination while answering the question

@@ -1,14 +1,15 @@
 from langchain_ollama import OllamaEmbeddings, OllamaLLM
 from langchain_chroma import Chroma
-from dotenv import load_dotenv
+import yaml
 import os
 
-load_dotenv()
+with open("config.yaml", "r") as f:
+    config = yaml.safe_load(f)
 
-CHROMA_DIR  = os.getenv("CHROMA_DIR", "chroma_db")
-EMBED_MODEL = os.getenv("EMBED_MODEL", "nomic-embed-text")
-LLM_MODEL   = os.getenv("LLM_MODEL",  "gemma3:1b")
-TOP_K       = int(os.getenv("TOP_K", "5"))
+CHROMA_DIR  = config["chroma_dir"]
+EMBED_MODEL = config["embed_model"]
+LLM_MODEL   = config["llm_model"]
+TOP_K       = config["top_k"]
 
 def load_vectorstore():
     embeddings = OllamaEmbeddings(model=EMBED_MODEL)
@@ -26,12 +27,13 @@ def build_prompt(query, chunks):
     context = ""
     for i, doc in enumerate(chunks):
         source = doc.metadata.get("filename", "unknown")
-        context += f"\n[{i+1}] (Source: {source})\n{doc.page_content}\n"
-    
-    prompt = f"""You are a helpful research assistant. Answer the question based ONLY on the context provided below. If the answer 
-    is not found in the context, say "I don't know based on the provided documents." Do NOT use any outside knowledge. For each point 
-    you make, you MUST mention the source number like [1], [2] etc. from the context. Context: {context} Question: {query} Answer:"""
-    
+        page = doc.metadata.get("page", "?")
+        context += f"\n[{i+1}] (Source: {source}, Page: {page})\n{doc.page_content}\n"
+
+    prompt = f"""You are a helpful research assistant. Answer the question based ONLY on the context provided below. If the answer is 
+    not found in the context, say "I don't know based on the provided documents." Do NOT use any outside knowledge. You MUST only 
+    cite source numbers that appear in the context below, which are [1] to [{len(chunks)}]. Never invent or use source numbers 
+    outside this range. Context: {context} Question: {query} Answer:"""
     return prompt
 
 def ask(query):
@@ -46,18 +48,15 @@ def ask(query):
 
 if __name__ == "__main__":
     # query = "What is the transformer architecture?"
-    query = "what is 1+1?"
-    
+    query = "What is 1 + 1= ?"
+
     print(f"\nQuestion: {query}\n")
     answer, chunks = ask(query)
-    
+
     print(f"Answer:\n{answer}\n")
     print("Sources used:")
-    sourcesSet = set()
     for i, doc in enumerate(chunks):
         source = doc.metadata.get("filename", "unknown")
-        sourcesSet.add(source)
-    x = 1
-    for source in sourcesSet:
-        print(f"[{x}]  - {source}")
-        x += 1
+        page = doc.metadata.get("page", "?")
+        paragraph = doc.page_content.strip()
+        print(f"[{i+1}] {source} — page {page}")

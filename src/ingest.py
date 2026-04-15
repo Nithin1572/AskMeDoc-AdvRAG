@@ -5,21 +5,22 @@ from langchain_chroma import Chroma
 from langchain_ollama import OllamaEmbeddings
 from langchain.schema import Document
 
-def load_pdfs(docs_folder = "docs"):
-    all_text = []
+def load_pdfs(docs_folder="docs"):
+    all_docs = []
     for filename in os.listdir(docs_folder):
         if filename.endswith(".pdf"):
             filepath = os.path.join(docs_folder, filename)
             reader = PdfReader(filepath)
-            text = ""
-            for page in reader.pages:
-                text += page.extract_text()
-            all_text.append({
-                "filename": filename,
-                "content": text
-            })
+            for page_num, page in enumerate(reader.pages, start=1):
+                text = page.extract_text()
+                if text and text.strip():
+                    all_docs.append({
+                        "filename": filename,
+                        "content": text,
+                        "page": page_num
+                    })
             print(f"Loaded {filename} ({len(reader.pages)} pages)")
-    return all_text
+    return all_docs
 
 def chunk_documents(documents):
     splitter = RecursiveCharacterTextSplitter(
@@ -34,7 +35,10 @@ def chunk_documents(documents):
         for chunk in chunks:
             all_chunks.append(Document(
                 page_content=chunk,
-                metadata={"filename": doc["filename"]}
+                metadata={
+                    "filename": doc["filename"],
+                    "page": doc["page"]
+                }
             ))
 
     print(f"\nTotal chunks created: {len(all_chunks)}")
