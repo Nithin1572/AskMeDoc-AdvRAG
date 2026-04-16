@@ -1,0 +1,282 @@
+[
+  {
+    "question": "What is the transformer architecture?",
+    "answer": "The Transformer is a model architecture that relies entirely on self-attention mechanisms to compute representations of its input and output, without using sequence-aligned RNNs or convolution.",
+    "source": "1706.03762v7.pdf"
+  },
+  {
+    "question": "What is multi-head attention?",
+    "answer": "Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions, using h parallel attention functions.",
+    "source": "1706.03762v7.pdf"
+  },
+  {
+    "question": "What is the role of positional encoding in the Transformer?",
+    "answer": "Positional encodings are added to input embeddings to give the model information about the relative or absolute position of tokens in the sequence.",
+    "source": "1706.03762v7.pdf"
+  },
+  {
+    "question": "What are the two sub-layers in each encoder layer of the Transformer?",
+    "answer": "Each encoder layer has a multi-head self-attention mechanism and a position-wise fully connected feed-forward network.",
+    "source": "1706.03762v7.pdf"
+  },
+  {
+    "question": "What optimization algorithm was used to train the Transformer?",
+    "answer": "The Adam optimizer was used with a custom learning rate schedule that increases linearly for warmup steps then decreases proportionally.",
+    "source": "1706.03762v7.pdf"
+  },
+  {
+    "question": "Why did the authors choose self-attention over recurrent layers?",
+    "answer": "Self-attention connects all positions with a constant number of operations, whereas recurrent layers require sequential operations proportional to sequence length, making self-attention faster and better at learning long-range dependencies.",
+    "source": "1706.03762v7.pdf"
+  },
+  {
+    "question": "What is the scaled dot-product attention?",
+    "answer": "Scaled dot-product attention computes the dot products of the query with all keys, divides by the square root of the key dimension, and applies a softmax to obtain weights on the values.",
+    "source": "1706.03762v7.pdf"
+  },
+  {
+    "question": "What tasks did the Transformer model achieve state-of-the-art results on?",
+    "answer": "The Transformer achieved state-of-the-art results on English-to-German and English-to-French translation tasks from WMT 2014, outperforming all previously reported models.",
+    "source": "1706.03762v7.pdf"
+  },
+  {
+    "question": "What does BERT stand for?",
+    "answer": "BERT stands for Bidirectional Encoder Representations from Transformers.",
+    "source": "1810.04805v2.pdf"
+  },
+  {
+    "question": "What is the masked language model objective in BERT?",
+    "answer": "BERT randomly masks 15% of input tokens and trains the model to predict the original masked tokens based on the surrounding context.",
+    "source": "1810.04805v2.pdf"
+  },
+  {
+    "question": "What is the Next Sentence Prediction task in BERT?",
+    "answer": "Next Sentence Prediction is a pre-training task where BERT learns to predict whether two sentences are consecutive in the original document or not.",
+    "source": "1810.04805v2.pdf"
+  },
+  {
+    "question": "What is the difference between BERT-base and BERT-large?",
+    "answer": "BERT-base has 12 transformer layers, 768 hidden size, and 110M parameters, while BERT-large has 24 transformer layers, 1024 hidden size, and 340M parameters.",
+    "source": "1810.04805v2.pdf"
+  },
+  {
+    "question": "How does BERT differ from GPT in terms of training?",
+    "answer": "BERT uses bidirectional self-attention and is pre-trained on masked language modeling, while GPT uses unidirectional left-to-right attention.",
+    "source": "1810.04805v2.pdf"
+  },
+  {
+    "question": "What datasets were used to pre-train BERT?",
+    "answer": "BERT was pre-trained on BooksCorpus with 800M words and English Wikipedia with 2,500M words.",
+    "source": "1810.04805v2.pdf"
+  },
+  {
+    "question": "What is fine-tuning in BERT?",
+    "answer": "Fine-tuning in BERT involves initializing the model with pre-trained parameters and training it on a downstream task with task-specific inputs and outputs.",
+    "source": "1810.04805v2.pdf"
+  },
+  {
+    "question": "What benchmark did BERT achieve state-of-the-art results on?",
+    "answer": "BERT achieved state-of-the-art results on the GLUE benchmark, SQuAD v1.1, SQuAD v2.0, and SWAG datasets.",
+    "source": "1810.04805v2.pdf"
+  },
+  {
+    "question": "What is GPT-3?",
+    "answer": "GPT-3 is a large autoregressive language model with 175 billion parameters trained by OpenAI that can perform many NLP tasks using few-shot prompting without fine-tuning.",
+    "source": "2005.14165v4.pdf"
+  },
+  {
+    "question": "What is few-shot learning in GPT-3?",
+    "answer": "Few-shot learning in GPT-3 means providing the model with a few examples of a task in the prompt at inference time, without any gradient updates or fine-tuning.",
+    "source": "2005.14165v4.pdf"
+  },
+  {
+    "question": "What is zero-shot learning in GPT-3?",
+    "answer": "Zero-shot learning in GPT-3 means the model is given only a natural language description of the task with no examples and is expected to produce the correct output.",
+    "source": "2005.14165v4.pdf"
+  },
+  {
+    "question": "What architecture does GPT-3 use?",
+    "answer": "GPT-3 uses a transformer architecture with alternating dense and locally banded sparse attention patterns, following the approach of sparse transformer.",
+    "source": "2005.14165v4.pdf"
+  },
+  {
+    "question": "What dataset was GPT-3 trained on?",
+    "answer": "GPT-3 was trained on a filtered version of Common Crawl, WebText2, Books1, Books2, and English Wikipedia datasets.",
+    "source": "2005.14165v4.pdf"
+  },
+  {
+    "question": "What is the main limitation of GPT-3 mentioned in the paper?",
+    "answer": "GPT-3 still struggles with tasks requiring fine-grained reasoning, common sense physics, and tends to generate repetitive or incoherent text over long passages.",
+    "source": "2005.14165v4.pdf"
+  },
+  {
+    "question": "How does GPT-3 perform on arithmetic tasks?",
+    "answer": "GPT-3 can perform simple arithmetic like 2-digit addition and subtraction with high accuracy but struggles with more complex arithmetic involving larger numbers.",
+    "source": "2005.14165v4.pdf"
+  },
+  {
+    "question": "What is one-shot learning in GPT-3?",
+    "answer": "One-shot learning in GPT-3 means the model is given exactly one example of the task in the prompt along with a natural language description before being asked to complete the task.",
+    "source": "2005.14165v4.pdf"
+  },
+  {
+    "question": "What is chain-of-thought prompting?",
+    "answer": "Chain-of-thought prompting is a technique where a few chain of thought demonstrations are provided as examples in the prompt, encouraging the model to generate intermediate reasoning steps before producing the final answer.",
+    "source": "2201.11903v6.pdf"
+  },
+  {
+    "question": "What types of tasks does chain-of-thought prompting improve?",
+    "answer": "Chain-of-thought prompting significantly improves performance on arithmetic reasoning, commonsense reasoning, and symbolic reasoning tasks.",
+    "source": "2201.11903v6.pdf"
+  },
+  {
+    "question": "At what model scale does chain-of-thought prompting become effective?",
+    "answer": "Chain-of-thought prompting only becomes effective at model scales of around 100 billion parameters or more.",
+    "source": "2201.11903v6.pdf"
+  },
+  {
+    "question": "What is the difference between standard prompting and chain-of-thought prompting?",
+    "answer": "Standard prompting provides input-output pairs as examples, while chain-of-thought prompting includes intermediate reasoning steps between the input and output in each example.",
+    "source": "2201.11903v6.pdf"
+  },
+  {
+    "question": "What benchmark was used to evaluate chain-of-thought prompting on math problems?",
+    "answer": "The GSM8K benchmark of grade school math word problems was used to evaluate chain-of-thought prompting on mathematical reasoning.",
+    "source": "2201.11903v6.pdf"
+  },
+  {
+    "question": "Does chain-of-thought prompting require fine-tuning?",
+    "answer": "No, chain-of-thought prompting does not require fine-tuning. It is a prompting-only technique that works at inference time.",
+    "source": "2201.11903v6.pdf"
+  },
+  {
+    "question": "What model was used to demonstrate chain-of-thought prompting in the paper?",
+    "answer": "The paper demonstrated chain-of-thought prompting using PaLM 540B and GPT-3 among other large language models.",
+    "source": "2201.11903v6.pdf"
+  },
+  {
+    "question": "What is the key finding about chain-of-thought prompting and model size?",
+    "answer": "Chain-of-thought prompting is an emergent ability that only appears in sufficiently large models and does not improve or can even hurt performance in smaller models.",
+    "source": "2201.11903v6.pdf"
+  },
+  {
+    "question": "What is LLaMA?",
+    "answer": "LLaMA is a collection of foundation language models ranging from 7B to 65B parameters trained by Meta AI on publicly available datasets.",
+    "source": "2302.13971v1.pdf"
+  },
+  {
+    "question": "What datasets was LLaMA trained on?",
+    "answer": "LLaMA was trained on publicly available datasets including Common Crawl, C4, GitHub, Wikipedia, Books, ArXiv, and Stack Exchange.",
+    "source": "2302.13971v1.pdf"
+  },
+  {
+    "question": "How does LLaMA compare to GPT-3?",
+    "answer": "LLaMA-13B outperforms GPT-3 on most benchmarks despite being 10 times smaller, and LLaMA-65B is competitive with Chinchilla and PaLM-540B.",
+    "source": "2302.13971v1.pdf"
+  },
+  {
+    "question": "What modifications did LLaMA make to the transformer architecture?",
+    "answer": "LLaMA uses pre-normalization with RMSNorm, SwiGLU activation function, and rotary positional embeddings instead of absolute positional embeddings.",
+    "source": "2302.13971v1.pdf"
+  },
+  {
+    "question": "What is the goal of LLaMA compared to other large language models?",
+    "answer": "The goal of LLaMA is to train the best possible models using only publicly available data, making it reproducible without access to proprietary datasets.",
+    "source": "2302.13971v1.pdf"
+  },
+  {
+    "question": "What is the context length used in LLaMA?",
+    "answer": "LLaMA uses a context length of 2048 tokens during training.",
+    "source": "2302.13971v1.pdf"
+  },
+  {
+    "question": "What tokenizer does LLaMA use?",
+    "answer": "LLaMA uses the byte-pair encoding tokenizer from SentencePiece.",
+    "source": "2302.13971v1.pdf"
+  },
+  {
+    "question": "What hardware was used to train LLaMA?",
+    "answer": "LLaMA was trained on 2048 A100 GPUs with 80GB of RAM using Meta's research cluster.",
+    "source": "2302.13971v1.pdf"
+  },
+  {
+    "question": "What is Retrieval Augmented Generation?",
+    "answer": "Retrieval Augmented Generation is a technique that combines a parametric memory model with a non-parametric memory retrieval system to generate more accurate and knowledge-grounded responses.",
+    "source": "2005.11401v4.pdf"
+  },
+  {
+    "question": "What retriever does the RAG model use?",
+    "answer": "The RAG model uses a Dense Passage Retriever that retrieves relevant documents from Wikipedia using maximum inner product search.",
+    "source": "2005.11401v4.pdf"
+  },
+  {
+    "question": "What are the two RAG formulations described in the paper?",
+    "answer": "The two formulations are RAG-Sequence, which uses the same retrieved document for the entire sequence, and RAG-Token, which can use different documents for each generated token.",
+    "source": "2005.11401v4.pdf"
+  },
+  {
+    "question": "What generator does the RAG model use?",
+    "answer": "The RAG model uses BART, a pre-trained seq2seq transformer, as the generator component.",
+    "source": "2005.11401v4.pdf"
+  },
+  {
+    "question": "What is the key advantage of RAG over parametric models?",
+    "answer": "RAG can access and update its knowledge by changing the non-parametric retrieval index without retraining the entire model.",
+    "source": "2005.11401v4.pdf"
+  },
+  {
+    "question": "What dataset was used to evaluate the RAG model?",
+    "answer": "The RAG model was evaluated on open domain question answering datasets including Natural Questions, TriviaQA, WebQuestions, and CuratedTrec.",
+    "source": "2005.11401v4.pdf"
+  },
+  {
+    "question": "What knowledge source does RAG retrieve from?",
+    "answer": "RAG retrieves from a non-parametric memory which is a dense vector index of Wikipedia containing 21 million passages.",
+    "source": "2005.11401v4.pdf"
+  },
+  {
+    "question": "How does RAG handle knowledge updates?",
+    "answer": "RAG can update its knowledge by simply swapping out or updating the document index without any retraining of the model parameters.",
+    "source": "2005.11401v4.pdf"
+  },
+  {
+    "question": "What is LoRA?",
+    "answer": "LoRA is a method for efficiently fine-tuning large language models by adding trainable low-rank decomposition matrices to existing weights while keeping the pre-trained weights frozen.",
+    "source": "2106.09685v2.pdf"
+  },
+  {
+    "question": "How does LoRA reduce trainable parameters?",
+    "answer": "LoRA decomposes weight updates into two low-rank matrices A and B, where the rank r is much smaller than the original dimensions, drastically reducing the number of trainable parameters.",
+    "source": "2106.09685v2.pdf"
+  },
+  {
+    "question": "What happens to LoRA adapter weights during inference?",
+    "answer": "During inference, LoRA adapter weights can be merged with the original weights producing no additional latency compared to the original model.",
+    "source": "2106.09685v2.pdf"
+  },
+  {
+    "question": "What is the rank r in LoRA?",
+    "answer": "The rank r is a hyperparameter that controls the dimensionality of the low-rank decomposition matrices. A smaller r means fewer trainable parameters.",
+    "source": "2106.09685v2.pdf"
+  },
+  {
+    "question": "Which weight matrices does LoRA apply to in the transformer?",
+    "answer": "LoRA is applied to the query and value projection matrices in the self-attention layers of the transformer.",
+    "source": "2106.09685v2.pdf"
+  },
+  {
+    "question": "How does LoRA compare to full fine-tuning in terms of performance?",
+    "answer": "LoRA matches or outperforms full fine-tuning on many benchmarks while using significantly fewer trainable parameters and less GPU memory.",
+    "source": "2106.09685v2.pdf"
+  },
+  {
+    "question": "What is the initialization strategy for LoRA matrices?",
+    "answer": "Matrix A is initialized with random Gaussian values and matrix B is initialized to zero, so the initial weight update is zero at the start of training.",
+    "source": "2106.09685v2.pdf"
+  },
+  {
+    "question": "What is the scaling factor in LoRA?",
+    "answer": "LoRA uses a scaling factor of alpha divided by r to scale the weight update, which helps stabilize training across different rank values.",
+    "source": "2106.09685v2.pdf"
+  }
+]
