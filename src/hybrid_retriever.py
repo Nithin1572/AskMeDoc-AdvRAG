@@ -1,11 +1,14 @@
-from retrieval import load_vectorstore, retrieve_chunks
+from retrieval import load_vectorstore, retrieve_chunks, build_prompt
 from bm25_retriever import load_all_chunks, build_bm25_index, bm25_search
+from reranker import load_reranker, rerank
 from langchain.schema import Document
+from langchain_ollama import OllamaLLM
 import yaml
 
 with open("config.yaml", "r") as f:
     config = yaml.safe_load(f)
 
+LLM_MODEL = config["llm_model"]
 TOP_K = config["top_k"]
 
 def reciprocal_rank_fusion(vector_results, bm25_results, k=60):
@@ -41,16 +44,11 @@ def hybrid_search(query):
 
     return fused_results
 
-# test the hybrid search with a sample query
-# if __name__ == "__main__":
-#     query = "How does LoRA work?"
-#     print(f"Query: {query}\n")
-    
-#     results = hybrid_search(query)
-    
-#     print(f"Top {TOP_K} hybrid results:")
-#     for i, doc in enumerate(results):
-#         source = doc.metadata.get("filename", "unknown")
-#         page = doc.metadata.get("page", "?")
-#         print(f"\n[{i+1}] {source} — page {page}")
-#         print(f"    {doc.page_content[:200]}...")
+def ask(query):
+    chunks = hybrid_search(query)
+    model = load_reranker()
+    reranked_chunks = rerank(query, chunks, model)
+    prompt = build_prompt(query, reranked_chunks)
+    llm = OllamaLLM(model=LLM_MODEL)
+    answer = llm.invoke(prompt)
+    return answer, reranked_chunks

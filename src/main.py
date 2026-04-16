@@ -1,12 +1,12 @@
-from retrieval import ask
+from hybrid_retriever import ask
 
 def main():
     print("\n AskMeDoc — RAG over LLM Research Papers")
 
     while True:
-        query = input("\n Enter your question (or 'exit' to quit): ").strip()
+        query = input("\n Enter your question (or 'exit/quit/clear' to quit): ").strip()
 
-        if query.lower() == "exit":
+        if query.lower() == "exit" or query.lower() == "quit" or query.lower() == "clear":
             print("\nGoodbye!")
             break
 
