@@ -41,15 +41,16 @@ def hybrid_search(query):
 
     return fused_results
 
-if __name__ == "__main__":
-    query = "How does LoRA work?"
-    print(f"Query: {query}\n")
+# test the hybrid search with a sample query
+# if __name__ == "__main__":
+#     query = "How does LoRA work?"
+#     print(f"Query: {query}\n")
     
-    results = hybrid_search(query)
+#     results = hybrid_search(query)
     
-    print(f"Top {TOP_K} hybrid results:")
-    for i, doc in enumerate(results):
-        source = doc.metadata.get("filename", "unknown")
-        page = doc.metadata.get("page", "?")
-        print(f"\n[{i+1}] {source} — page {page}")
-        print(f"    {doc.page_content[:200]}...")
+#     print(f"Top {TOP_K} hybrid results:")
+#     for i, doc in enumerate(results):
+#         source = doc.metadata.get("filename", "unknown")
+#         page = doc.metadata.get("page", "?")
+#         print(f"\n[{i+1}] {source} — page {page}")
+#         print(f"    {doc.page_content[:200]}...")

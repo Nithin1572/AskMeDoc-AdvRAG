@@ -40,15 +40,16 @@ def bm25_search(query, bm25, documents, all_docs, k=TOP_K):
         })
     return results
 
-if __name__ == "__main__":
+# test the BM25 retriever with a sample query
+# if __name__ == "__main__":
 
-    all_docs = load_all_chunks()
-    bm25, documents = build_bm25_index(all_docs)
-    query = "How does LoRA work?"
-    print(f"\nSearching for: '{query}'")
-    results = bm25_search(query, bm25, documents, all_docs)
+#     all_docs = load_all_chunks()
+#     bm25, documents = build_bm25_index(all_docs)
+#     query = "How does LoRA work?"
+#     print(f"\nSearching for: '{query}'")
+#     results = bm25_search(query, bm25, documents, all_docs)
 
-    print(f"\nTop {TOP_K} results:")
-    for i, result in enumerate(results):
-        print(f"\n[{i+1}] {result['metadata']} — score: {result['score']:.4f}")
-        print(f"    {result['content'][:200]}...")
+#     print(f"\nTop {TOP_K} results:")
+#     for i, result in enumerate(results):
+#         print(f"\n[{i+1}] {result['metadata']} — score: {result['score']:.4f}")
+#         print(f"    {result['content'][:200]}...")

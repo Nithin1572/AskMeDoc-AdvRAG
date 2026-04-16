@@ -46,17 +46,18 @@ def ask(query):
     
     return answer, chunks
 
-if __name__ == "__main__":
-    # query = "What is the transformer architecture?"
-    query = "What is 1 + 1= ?"
+# test the retrieval and prompting with a sample query
+# if __name__ == "__main__":
+#     # query = "What is the transformer architecture?"
+#     query = "What is 1 + 1= ?"
 
-    print(f"\nQuestion: {query}\n")
-    answer, chunks = ask(query)
+#     print(f"\nQuestion: {query}\n")
+#     answer, chunks = ask(query)
 
-    print(f"Answer:\n{answer}\n")
-    print("Sources used:")
-    for i, doc in enumerate(chunks):
-        source = doc.metadata.get("filename", "unknown")
-        page = doc.metadata.get("page", "?")
-        paragraph = doc.page_content.strip()
-        print(f"[{i+1}] {source} — page {page}")
+#     print(f"Answer:\n{answer}\n")
+#     print("Sources used:")
+#     for i, doc in enumerate(chunks):
+#         source = doc.metadata.get("filename", "unknown")
+#         page = doc.metadata.get("page", "?")
+#         paragraph = doc.page_content.strip()
+#         print(f"[{i+1}] {source} — page {page}")
