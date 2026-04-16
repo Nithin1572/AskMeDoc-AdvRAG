@@ -23,16 +23,20 @@ def retrieve_chunks(query, vectorstore):
     return results
 
 def build_prompt(query, chunks):
+    with open("prompts.yaml", "r") as f:
+        prompts = yaml.safe_load(f)
+
     context = ""
     for i, doc in enumerate(chunks):
         source = doc.metadata.get("filename", "unknown")
         page = doc.metadata.get("page", "?")
         context += f"\n[{i+1}] (Source: {source}, Page: {page})\n{doc.page_content}\n"
 
-    prompt = f"""You are a helpful research assistant. Answer the question based ONLY on the context provided below. If the answer is 
-    not found in the context, say "I don't know based on the provided documents." Do NOT use any outside knowledge. You MUST only 
-    cite source numbers that appear in the context below, which are [1] to [{len(chunks)}]. Never invent or use source numbers 
-    outside this range. Context: {context} Question: {query} Answer:"""
+    prompt = prompts["rag_prompt"].format(
+        context=context,
+        query=query,
+        num_chunks=len(chunks)
+    )
     return prompt
 
 def ask(query):
