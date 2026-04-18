@@ -1,4 +1,4 @@
-# AskMeDoc-AdvRAG [Medium blog post] (https://medium.com/@nithintpr1572/test-blog-5fa194f853cf)
+# AskMeDoc-AdvRAG [Medium blog](https://medium.com/@nithintpr1572/test-blog-5fa194f853cf)
 
 A production-grade Retrieval Augmented Generation (RAG) system built on top of local LLMs — no API keys, no rate limits, runs entirely offline.
 
