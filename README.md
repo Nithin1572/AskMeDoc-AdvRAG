@@ -1,8 +1,6 @@
-# AskMeDoc-AdvRAG
+# AskMeDoc-AdvRAG [Medium blog post] (https://medium.com/@nithintpr1572/test-blog-5fa194f853cf)
 
 A production-grade Retrieval Augmented Generation (RAG) system built on top of local LLMs — no API keys, no rate limits, runs entirely offline.
-
-> 📖 For a detailed explanation of this project, check out the [Medium blog post](https://medium.com/@nithintpr1572/test-blog-5fa194f853cf)
 
 ---
 
@@ -22,6 +20,8 @@ A production-grade Retrieval Augmented Generation (RAG) system built on top of l
 - [Ollama](https://ollama.com) installed on your system
 - Git installed
 
+---
+
 ## Steps
 1. Clone the repository
 > `git clone https://github.com/Nithin1572/AskMeDoc-AdvRAG.git`
@@ -33,6 +33,7 @@ A production-grade Retrieval Augmented Generation (RAG) system built on top of l
 > `pip install -r requirements.txt`
 4. Pull the required Ollama models
 >`ollama pull nomic-embed-text`
+>`ollama pull gemma3:4b`
 5. Add your research paper PDFs to the `docs/` folder
 6. Run `src/ingest.py` to load, chunk and embed documents
 7. Run the Application `src/main.py`.
