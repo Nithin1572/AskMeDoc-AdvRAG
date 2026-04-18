@@ -1,7 +1,9 @@
-from retrieval import load_vectorstore, retrieve_chunks, build_prompt
-from bm25_retriever import load_all_chunks, build_bm25_index, bm25_search
-from reranker import load_reranker, rerank
-from langchain.schema import Document
+from src.retrieval import load_vectorstore, retrieve_chunks, build_prompt
+from src.bm25_retriever import load_all_chunks, build_bm25_index, bm25_search
+from src.reranker import load_reranker, rerank
+from sentence_transformers import CrossEncoder
+# from langchain.schema import Document
+from langchain_core.documents import Document
 from langchain_ollama import OllamaLLM
 import yaml
 
@@ -44,9 +46,8 @@ def hybrid_search(query):
 
     return fused_results
 
-def ask(query):
+def ask(query, model):
     chunks = hybrid_search(query)
-    model = load_reranker()
     reranked_chunks = rerank(query, chunks, model)
     prompt = build_prompt(query, reranked_chunks)
     llm = OllamaLLM(model=LLM_MODEL)

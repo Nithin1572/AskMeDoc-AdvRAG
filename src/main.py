@@ -1,6 +1,11 @@
-from hybrid_retriever import ask
+from src.hybrid_retriever import ask
+from sentence_transformers import CrossEncoder
+
+def load_model():
+    return CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
 def main():
+    model = load_model()
     print("\n AskMeDoc — RAG over LLM Research Papers")
 
     while True:
@@ -13,8 +18,8 @@ def main():
         if not query:
             print("Please enter a valid question.")
             continue
-
-        answer, chunks = ask(query)
+        
+        answer, chunks = ask(query, model)
 
         print(f"\nAnswer: {answer}")
 
