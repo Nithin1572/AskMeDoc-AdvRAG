@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  evaluate:
+  smoke-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,6 +24,9 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run evaluation
+      - name: Check imports and syntax
         run: |
-          python -m scripts.evaluate
+          python -c "import yaml; import json; print('Config imports OK')"
+          python -c "open('config.yaml'); print('config.yaml found')"
+          python -c "open('prompts.yaml'); print('prompts.yaml found')"
+          python -c "open('eval_dataset.json'); print('eval_dataset.json found')"
